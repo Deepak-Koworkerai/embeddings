@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify
 import google.generativeai as genai
 import logging
 
+genai.configure(api_key="AIzaSyBg9Hq7avlD4iX94pnU9ce6YwT1X5LPeVc")
+
 app = Flask(__name__)
 # Set up logging
 logging.basicConfig(level=logging.INFO)
