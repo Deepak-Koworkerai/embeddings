@@ -3,3 +3,8 @@ google-generativeai
 langchain
 langchain_google_genai
 gunicorn
+requests
+gevent
+gunicorn
+urllib3
+
