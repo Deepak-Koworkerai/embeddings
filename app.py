@@ -1,12 +1,6 @@
 from flask import Flask, request, jsonify
 import google.generativeai as genai
 import logging
-import ssl 
-import gevent.monkey
-gevent.monkey.patch_all()
-
-# Set the SSL context to avoid verification issues
-ssl._create_default_https_context = ssl._create_unverified_context
 
 
 genai.configure(api_key="AIzaSyBg9Hq7avlD4iX94pnU9ce6YwT1X5LPeVc")
