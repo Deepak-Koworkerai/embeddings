@@ -1,5 +1,5 @@
 Flask
-gunicorn
-langchain-community
-sentence_transformers 
-accelerate
+google-generativeai
+langchain
+langchain_google_genai
+
