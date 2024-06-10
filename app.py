@@ -1,20 +1,22 @@
 from flask import Flask, request, jsonify
-from langchain_community.embeddings import HuggingFaceBgeEmbeddings
+import google.generativeai as genai
 
-# Initialize the Flask app
 app = Flask(__name__)
 
-model_name = "BAAI/bge-base-en"
-encode_kwargs = {'normalize_embeddings': True} # set True to compute cosine similarity
+def llm_model(question, data):
+    model = genai.GenerativeModel('gemini-1.5-pro')
+    response = model.generate_content(f'''You are an Friend and a AI assistant for Deepak PROVIDE THE PERFECT ANSWER IN THREE POINTS 
+    for the user querstion from the available data!!\n" Question:{question} \n CONTEXT:{data}''')    
+    return response.text
 
-# Creating an object for embedding model
-embeddings = HuggingFaceBgeEmbeddings(
-    model_name=model_name,
-    model_kwargs={'device': 'cpu'},  # use cuda, if gpu is available
-    encode_kwargs=encode_kwargs
-)
+@app.route('/model', methods=['POST'])
+def receive_input():
+    # Get data sent from the other Flask application
+    data = request.json
+    user_question = data.get('user_question')
+    response = data.get('response')
+    out = llm_model(user_question, response)
+    return jsonify({'output': out})
 
-@app.route("/embeddings", methods=["POST"])
-def get_embeddings():
-  return embeddings
-  
+if __name__ == '__main__':
+    app.run(debug=True)
